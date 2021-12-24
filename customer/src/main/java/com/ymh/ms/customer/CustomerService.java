@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public record CustomerService(CustomerRepository customerRepository) {
+
+    // Registration a customer
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
