@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +26,6 @@ public class FraudCheckHistory {
     private Integer id;
 
     private Integer customerId;
-    private Boolean isFraudster;
+    private Boolean isFraud;
     private LocalDateTime createdAt;
 }
