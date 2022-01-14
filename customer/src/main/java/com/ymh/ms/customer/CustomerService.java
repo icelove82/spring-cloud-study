@@ -24,7 +24,8 @@ public class CustomerService {
 
         // 2. check customer if fraud
         FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                "http://localhost:8081/api/v1/fraud-check/{customerId}",
+//                "http://localhost:8081/api/v1/fraud-check/{customerId}",
+                "http://FRAUD/api/v1/fraud-check/{customerId}", // Eureka service
                 FraudCheckResponse.class,
                 customer.getId()
         );
