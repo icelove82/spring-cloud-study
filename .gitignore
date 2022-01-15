@@ -28,3 +28,5 @@ hs_err_pid*
 /fraud/target/classes/banner.txt
 /eureka-server/target/classes/application.yml
 /eureka-server/target/classes/banner.txt
+/notification/target/classes/application.yml
+/notification/target/classes/banner.txt
