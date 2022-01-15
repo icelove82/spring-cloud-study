@@ -1,4 +1,4 @@
-package com.ymh.ms.customer;
+package com.ymh.ms.clients.fraud;
 
 public record FraudCheckResponse(Boolean isFraud) {
 }

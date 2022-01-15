@@ -1,5 +1,6 @@
 package com.ymh.ms.fraud;
 
+import com.ymh.ms.clients.fraud.FraudCheckResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

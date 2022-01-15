@@ -1,15 +1,16 @@
 package com.ymh.ms.customer;
 
+import com.ymh.ms.clients.fraud.FraudCheckResponse;
+import com.ymh.ms.clients.fraud.FraudClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @AllArgsConstructor
 @Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
+    private final FraudClient fraudClient;
 
     // Registration a customer
     public void registerCustomer(CustomerRegistrationRequest request) {
@@ -23,12 +24,7 @@ public class CustomerService {
         customerRepository.saveAndFlush(customer);
 
         // 2. check customer if fraud
-        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-//                "http://localhost:8081/api/v1/fraud-check/{customerId}",
-                "http://FRAUD/api/v1/fraud-check/{customerId}", // Eureka service
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+        FraudCheckResponse fraudCheckResponse = fraudClient.isFraud(customer.getId());
 
         assert fraudCheckResponse != null;
         if (fraudCheckResponse.isFraud()) {
