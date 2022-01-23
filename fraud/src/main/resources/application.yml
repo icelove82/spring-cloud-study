@@ -5,9 +5,9 @@ spring:
   application:
     name: fraud
   datasource:
-    password: develop
-    url: jdbc:postgresql://localhost:5433/fraud
-    username: develop
+    password: password
+    url: jdbc:postgresql://localhost:5430/fraud
+    username: amigoscode
   jpa:
     hibernate:
       ddl-auto: create-drop
