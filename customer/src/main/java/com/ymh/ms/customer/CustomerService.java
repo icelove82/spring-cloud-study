@@ -1,5 +1,6 @@
 package com.ymh.ms.customer;
 
+import com.ymh.ms.amqp.RabbitMQMessageProducer;
 import com.ymh.ms.clients.fraud.FraudCheckResponse;
 import com.ymh.ms.clients.fraud.FraudClient;
 import com.ymh.ms.clients.notification.NotificationClient;
@@ -14,6 +15,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
     private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     // Registration a customer
     public void registerCustomer(CustomerRegistrationRequest request) {
@@ -34,14 +36,26 @@ public class CustomerService {
             throw new IllegalStateException("The customer is fraud");
         }
 
-        // 3. send notification
-        // todo: make it async. i.e add to queue
+        // 3. send notification via RabbitMQ
+        /* Via client will be non-async way, what means it will delay the user experience
         notificationClient.sendNotification(
                 new NotificationRequest(
                         customer.getId(),
                         customer.getEmail(),
                         String.format("Hi %s, welcome to Alex YUN 's world ...", customer.getFirstName())
                 )
+        );
+        */
+
+        /* Via AMQP will be async way service */
+        rabbitMQMessageProducer.publish(
+                new NotificationRequest(
+                        customer.getId(),
+                        customer.getEmail(),
+                        String.format("Hi %s, welcome to Alex YUN 's world ...", customer.getFirstName())
+                ),
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
     }
 }
