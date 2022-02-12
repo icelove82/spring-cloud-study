@@ -144,3 +144,10 @@ hs_err_pid*
 /eureka-server/target/jib-cache/jib-main-class-file
 /fraud/target/jib-cache/jib-main-class-file
 /notification/target/jib-cache/jib-main-class-file
+/k8s/minikube/bootstrap/rabbitmq/configmap.yaml
+/k8s/minikube/bootstrap/rabbitmq/rbac.yaml
+/k8s/minikube/bootstrap/rabbitmq/README.md
+/k8s/minikube/bootstrap/zipkin/service.yml
+/k8s/minikube/bootstrap/rabbitmq/services.yaml
+/k8s/minikube/bootstrap/rabbitmq/statefulset.yaml
+/k8s/minikube/bootstrap/zipkin/statefulset.yml
