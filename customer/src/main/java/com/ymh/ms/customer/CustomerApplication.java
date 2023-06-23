@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients("com.ymh.ms.clients")
 @EnableEurekaClient
 @SpringBootApplication(
+        // 因为 ampq 模块的作用就相当于一个 lib，并不是一个 Spring Boot App，为了能自动装配所以在此标注
         scanBasePackages = {
                 "com.ymh.ms.amqp",
                 "com.ymh.ms.customer"
