@@ -1,6 +1,7 @@
 package com.ymh.ms.notification;
 
 import com.ymh.ms.amqp.RabbitMQMessageProducer;
+import com.ymh.ms.clients.notification.NotificationRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +30,8 @@ public class NotificationApplication {
     CommandLineRunner commandLineRunner(RabbitMQMessageProducer producer, NotificationConfig config) {
         return args -> {
             producer.publish(
-                    "YMH is winner",
+                    NotificationRequest.builder().toCustomerId(1).toCustomerName("YMH").
+                            message("YMH is winner").build(),
                     config.getInternalExchange(),
                     config.getInternalNotificationRoutingKey());
         };
