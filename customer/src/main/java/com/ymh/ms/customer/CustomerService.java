@@ -6,6 +6,10 @@ import com.ymh.ms.clients.fraud.FraudClient;
 import com.ymh.ms.clients.notification.NotificationClient;
 import com.ymh.ms.clients.notification.NotificationRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
