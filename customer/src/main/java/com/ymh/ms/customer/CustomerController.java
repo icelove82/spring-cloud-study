@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @RestController
@@ -28,5 +29,12 @@ public class CustomerController {
     public String getEcho() throws IOException {
         return "classpath:public -> " + getPath1.getFile().getAbsolutePath() + "<br>" +
                 "classpath:static -> " + getPath2.getFile().getAbsolutePath();
+    }
+
+    @GetMapping("/async")
+    public CompletableFuture<String> testAsync() {
+        log.info("YMH => " + "API start");
+        CompletableFuture.supplyAsync(customerService::asyncMethodWithReturnType);
+        return CompletableFuture.completedFuture("Success!");
     }
 }

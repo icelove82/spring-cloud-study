@@ -6,14 +6,16 @@ import com.ymh.ms.clients.fraud.FraudClient;
 import com.ymh.ms.clients.notification.NotificationClient;
 import com.ymh.ms.clients.notification.NotificationRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -61,5 +63,20 @@ public class CustomerService {
                 "internal.exchange",
                 "internal.notification.routing-key"
         );
+    }
+
+    @Async
+    public CompletableFuture<String> asyncMethodWithReturnType() {
+        log.info("YMH => " + "Execute method asynchronously");
+
+        try {
+            TimeUnit.SECONDS.sleep(10);
+
+            log.info("YMH => " + "Execute finish method asynchronously");
+            return CompletableFuture.completedFuture("Success!");
+        } catch (InterruptedException e) {
+            //Handle exception
+            return CompletableFuture.completedFuture("Fail!");
+        }
     }
 }
