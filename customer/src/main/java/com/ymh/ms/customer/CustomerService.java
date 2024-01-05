@@ -66,17 +66,11 @@ public class CustomerService {
     }
 
     @Async
-    public CompletableFuture<String> asyncMethodWithReturnType() {
+    public void asyncMethodWithReturnType() throws InterruptedException {
         log.info("YMH => " + "Execute method asynchronously");
 
-        try {
-            TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(10);
 
-            log.info("YMH => " + "Execute finish method asynchronously");
-            return CompletableFuture.completedFuture("Success!");
-        } catch (InterruptedException e) {
-            //Handle exception
-            return CompletableFuture.completedFuture("Fail!");
-        }
+        log.info("YMH => " + "Execute finish method asynchronously");
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -34,7 +35,15 @@ public class CustomerController {
     @GetMapping("/async")
     public CompletableFuture<String> testAsync() {
         log.info("YMH => " + "API start");
-        CompletableFuture.supplyAsync(customerService::asyncMethodWithReturnType);
-        return CompletableFuture.completedFuture("Success!");
+
+        try {
+            customerService.asyncMethodWithReturnType();
+
+            // Success
+            return CompletableFuture.completedFuture("Success!");
+        } catch (InterruptedException e) {
+            // Fail
+            return CompletableFuture.completedFuture("Fail!");
+        }
     }
 }
