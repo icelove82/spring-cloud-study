@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
@@ -70,6 +70,10 @@ public class CustomerService {
         log.info("YMH => " + "Execute method asynchronously");
 
         TimeUnit.SECONDS.sleep(10);
+
+        List<Customer> byJpaQuery = customerRepository.findAll();
+
+        List<Customer> byNativeQuery = customerRepository.findByNativeQuery("yun", "myeonghun");
 
         log.info("YMH => " + "Execute finish method asynchronously");
     }
