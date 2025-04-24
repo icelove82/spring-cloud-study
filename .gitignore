@@ -144,3 +144,4 @@ hs_err_pid*
 /eureka-server/target/jib-cache/jib-main-class-file
 /fraud/target/jib-cache/jib-main-class-file
 /notification/target/jib-cache/jib-main-class-file
+/auth/target/

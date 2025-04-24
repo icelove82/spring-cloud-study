@@ -10,6 +10,7 @@
         <module name="notification" />
         <module name="apigw" />
         <module name="clients" />
+        <module name="auth" />
         <module name="fraud" />
         <module name="amqp" />
         <module name="eureka-server" />

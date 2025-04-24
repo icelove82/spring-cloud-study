@@ -119,6 +119,21 @@ services:
       - postgres
       - rabbitmq
 
+  auth:
+    image: yunmyeonghun/auth:latest
+    container_name: auth
+    ports:
+      - "8084:8084"
+    networks:
+      - spring
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zipkin
+      - eureka-server
+      - postgres
+
 networks:
   postgres:
     driver: bridge
