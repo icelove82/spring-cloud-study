@@ -145,3 +145,7 @@ hs_err_pid*
 /fraud/target/jib-cache/jib-main-class-file
 /notification/target/jib-cache/jib-main-class-file
 /auth/target/
+/apigw/target/classes/application.yml
+/apigw/target/classes/banner.txt
+/customer/target/classes/public/hi.txt
+/customer/target/classes/static/test.txt
