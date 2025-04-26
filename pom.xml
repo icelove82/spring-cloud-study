@@ -24,9 +24,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring.boot.dependecies.version>3.1.5</spring.boot.dependecies.version>
+        <spring.boot.dependencies.version>3.1.5</spring.boot.dependencies.version>
         <spring.boot.maven.plugin.version>3.1.5</spring.boot.maven.plugin.version>
         <spring.cloud-version>2022.0.4</spring.cloud-version>
+        <jwt.version>0.11.5</jwt.version>
+        <internal.module.version>1.0-SNAPSHOT</internal.module.version>
         <image>yunmyeonghun/${project.artifactId}:${project.version}</image>
     </properties>
 
@@ -35,7 +37,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.dependecies.version}</version>
+                <version>${spring.boot.dependencies.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -45,6 +47,35 @@
                 <version>${spring.cloud-version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <!-- JWT Dependencies -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- Internal Module Dependencies -->
+            <dependency>
+                <groupId>com.ymh.ms</groupId>
+                <artifactId>amqp</artifactId>
+                <version>${internal.module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ymh.ms</groupId>
+                <artifactId>clients</artifactId>
+                <version>${internal.module.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
