@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableFeignClients("com.ymh.ms.clients")
 @EnableDiscoveryClient
 @SpringBootApplication(
-        // 因为 ampq 模块的作用就相当于一个 lib，并不是一个 Spring Boot App，为了能自动装配所以在此标注
+        // 因为 amqp 模块的作用就相当于一个 lib，并不是同一个 Spring Boot App，为了能自动装配所以在此标注
         scanBasePackages = {
                 "com.ymh.ms.amqp",
                 "com.ymh.ms.customer"

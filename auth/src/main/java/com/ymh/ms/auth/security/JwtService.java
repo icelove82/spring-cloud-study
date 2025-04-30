@@ -1,10 +1,12 @@
 package com.ymh.ms.auth.security;
 
+import com.ymh.ms.auth.dto.AuthenticationResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@Slf4j
 public class JwtService {
 
     @Value("${jwt.secret}")
@@ -93,5 +96,28 @@ public class JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public AuthenticationResponse createAuthenticationResponse(UserDetails userDetails) {
+        String accessToken = generateToken(userDetails);
+        String refreshToken = generateRefreshToken(userDetails);
+
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    public AuthenticationResponse refreshAccessToken(String refreshToken, UserDetails userDetails) {
+        if (isTokenValid(refreshToken, userDetails)) {
+            String accessToken = generateToken(userDetails);
+
+            return AuthenticationResponse.builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .build();
+        }
+
+        throw new IllegalArgumentException("Invalid refresh token");
     }
 }

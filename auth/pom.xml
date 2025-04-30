@@ -60,6 +60,10 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-observation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ymh.ms</groupId>
+            <artifactId>clients</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

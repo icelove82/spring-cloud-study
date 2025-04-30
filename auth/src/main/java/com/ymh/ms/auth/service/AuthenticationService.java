@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    private final JwtService jwtService;
+    private final CustomUserDetailsService customUserDetailsService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsService customUserDetailsService;
 
     public AuthenticationResponse register(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -39,13 +39,7 @@ public class AuthenticationService {
         userRepository.save(user);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
-        var accessToken = jwtService.generateToken(userDetails);
-        var refreshToken = jwtService.generateRefreshToken(userDetails);
-
-        return AuthenticationResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return jwtService.createAuthenticationResponse(userDetails);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -63,27 +57,25 @@ public class AuthenticationService {
         userRepository.save(user);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
-        var accessToken = jwtService.generateToken(userDetails);
-        var refreshToken = jwtService.generateRefreshToken(userDetails);
-
-        return AuthenticationResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
+        return jwtService.createAuthenticationResponse(userDetails);
     }
 
     public AuthenticationResponse refreshToken(String refreshToken) {
         String username = jwtService.extractUsername(refreshToken);
         if (username != null) {
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            if (jwtService.isTokenValid(refreshToken, userDetails)) {
-                var accessToken = jwtService.generateToken(userDetails);
-                return AuthenticationResponse.builder()
-                        .accessToken(accessToken)
-                        .refreshToken(refreshToken)
-                        .build();
-            }
+            return jwtService.refreshAccessToken(refreshToken, userDetails);
         }
         throw new IllegalArgumentException("Invalid refresh token");
+    }
+
+    public boolean validateToken(String token) {
+        String username = jwtService.extractUsername(token);
+        UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(username);
+        return jwtService.isTokenValid(token, userDetails);
+    }
+
+    public String extractUsernameFromToken(String token) {
+        return jwtService.extractUsername(token);
     }
 }
