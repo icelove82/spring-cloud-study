@@ -26,12 +26,12 @@ public class CustomerConfig {
     Resource staticFile;
 
 
-    @Bean
+    @Bean(name = "getPath1")
     public Resource getPath1() {
         return publicFile;
     }
 
-    @Bean
+    @Bean(name = "getPath2")
     public Resource getPath2() {
         return staticFile;
     }

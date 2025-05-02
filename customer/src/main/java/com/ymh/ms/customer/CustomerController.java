@@ -2,6 +2,7 @@ package com.ymh.ms.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,8 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
 
-    private final Resource getPath1;
-    private final Resource getPath2;
+    private final @Qualifier("getPath1") Resource getPath1;
+    private final @Qualifier("getPath2") Resource getPath2;
     private final CustomerService customerService;
 
     @PostMapping
