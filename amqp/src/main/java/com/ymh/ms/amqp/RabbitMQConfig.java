@@ -1,6 +1,6 @@
 package com.ymh.ms.amqp;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RabbitMQConfig {
 
     private final ConnectionFactory connectionFactory;
