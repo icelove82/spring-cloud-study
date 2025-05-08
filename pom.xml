@@ -97,7 +97,7 @@
     </dependencies>
 
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults -->
+        <pluginManagement><!-- lock down plugin versions to avoid using Maven defaults -->
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
